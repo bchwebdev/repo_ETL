@@ -7,7 +7,6 @@
 # Présentation du sujet: 
 # Organisation
 
-
 - A faire:
 
     - Script insetion dans la base (collecteur vers bdd) : utiliser flask python
