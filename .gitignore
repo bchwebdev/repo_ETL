@@ -1,0 +1,7 @@
+# ignorer tous les fichiers dans le répertoire mariadb
+mariadb/
+_Sujet du TP/
+_Datas_Utils/tests-docker-compose/
+_tests/
+
+
