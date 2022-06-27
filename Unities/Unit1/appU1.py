@@ -13,7 +13,6 @@ from datetime import datetime
 from datetime import time
 from datetime import date
 import time
-
 #HOST = '127.0.0.1'
 #HOST = '0.0.0.0'
 HOST = socket.gethostbyname('localhost')

@@ -64,7 +64,6 @@ def insertDatas(jsonFile):
     else:
         print("No files to save")
 #------------------------------------
-
 def Main():   
     # create the client socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

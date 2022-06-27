@@ -28,7 +28,4 @@ def test_table() -> List[Dict]:
 @app.route('/')
 def index() -> str:
     return json.dumps({'test_table': test_table()})
-
-
-
-
+    
