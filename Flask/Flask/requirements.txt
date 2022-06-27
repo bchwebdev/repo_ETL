@@ -1,0 +1,5 @@
+cryptography
+jinja2
+flask
+flask-mySQL
+PyMySQL
