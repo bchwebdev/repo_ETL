@@ -2,15 +2,9 @@
 
     EPSI- Rennes Master 1   TP DataVisualisation
     
-# >>>>>>>>>>>>>>>AuBonBeurre_TP_DataVisualisation<<<<<<<<<<<<<<<<
+# AuBonBeurre_TP_DataVisualisation
 
 # Présentation du sujet: 
-
-```
-
-```
-
-
 # Organisation
 
 - A faire:
