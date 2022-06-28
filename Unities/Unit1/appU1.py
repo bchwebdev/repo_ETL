@@ -54,14 +54,15 @@ def generateDatas(unityNum, creatTime) -> dict:
     jsonFileMesures = json.dumps(fileJson, sort_keys=True)
     return jsonFileMesures
         
+        
+        
 def generateJson(datasSet, nameFile):
-    #creation du json
     jsonFile=""
     fileToJson = open(nameFile, "w")
     jsonFile = json.dump(datasSet, fileToJson)
     fileToJson.close()
     return jsonFile
-   
+
 def main():
     iCount=0
     #un par minutes;
@@ -83,6 +84,7 @@ def main():
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((HOST, PORT))
+        print('Connecting...')
         # send the filename and filesize
         s.send(f"{fileName}{SEPARATOR}{jsonFileSize}".encode())
         # start sending the file
@@ -99,6 +101,6 @@ def main():
         s.close()
         iCount = iCount+1
         time.sleep(5)
-
+        
 if __name__ == "__main__":
     main()

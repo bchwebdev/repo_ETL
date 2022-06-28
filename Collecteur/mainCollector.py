@@ -8,7 +8,7 @@ import requests, json, threading, socket, os, shutil, ssl, time
 import os
 # import socket programming library
 import socket
- # import thread module
+# import thread module
 # import thread module
 from _thread import *
 import threading
@@ -25,10 +25,10 @@ print_lock = threading.Lock()
 filePath = "json_files/"
 
 
- # thread function
+# thread function
 def threaded(c,addr):
     while True:
-         # data received from client
+        # data received from client
         data = c.recv(BUFFER_SIZE)
         if not data:
             # lock released on exit
@@ -71,16 +71,16 @@ def insertDatas(jsonFile):
     else:
         print("No files to save")
 #------------------------------------
-def Main():   
+def main():   
     # create the client socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
     print("socket binded to port: ", PORT)
-     # put the socket into listening mode
+    # put the socket into listening mode
     s.listen()
     print(f"[LISTENING] Server is listening on {HOST}:{PORT}.") 
     while True:
-         # establish connection with client
+        # establish connection with client
         c, addr = s.accept()
         # lock acquired by client
         print_lock.acquire()
@@ -105,7 +105,7 @@ def Main():
                     f.write(bytes_read)
         #Insert datas
         #----------------------
-        #insertDatas(fileName)  
+        insertDatas(fileName)  
         #----------------------
         c.close()
     
@@ -115,4 +115,4 @@ def Main():
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
     
 if __name__ == '__main__':
-    Main()
+    main()
