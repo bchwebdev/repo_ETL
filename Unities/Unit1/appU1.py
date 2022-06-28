@@ -54,8 +54,9 @@ def generateDatas(unityNum, creatTime) -> dict:
     jsonFileMesures = json.dumps(fileJson, sort_keys=True)
     return jsonFileMesures
         
+        
+        
 def generateJson(datasSet, nameFile):
-    #creation du json
     jsonFile=""
     fileToJson = open(nameFile, "w")
     jsonFile = json.dump(datasSet, fileToJson)

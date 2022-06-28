@@ -6,7 +6,7 @@
 import os
 # import socket programming library
 import socket
- # import thread module
+# import thread module
 # import thread module
 from _thread import *
 import threading
@@ -28,7 +28,7 @@ filePath = "json_files/"
  # thread function
 def threaded(c,addr):
     while True:
-         # data received from client
+        # data received from client
         data = c.recv(BUFFER_SIZE)
         if not data:
             # lock released on exit

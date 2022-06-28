@@ -21,7 +21,7 @@ def filesListStillToBeProcessed(FilesRecevedList,filesProcessedList):
         difference_2 = set(FilesRecevedList).difference(set(filesProcessedList))
         liste = list(difference_1.union(difference_2))
     else:
-         liste = FilesRecevedList
+        liste = FilesRecevedList
     return liste
 
 #Exctraction date nom de fichier

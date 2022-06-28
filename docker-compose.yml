@@ -47,7 +47,8 @@ services:
       container_name: 'unite1'
       command: python3 appU1.py
       ports:
-        - '10002:10002'
+      - '10002:10002'
+      network_mode: host
       depends_on:
         - collecteur
         - mysql_db
