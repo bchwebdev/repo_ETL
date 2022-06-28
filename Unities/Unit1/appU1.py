@@ -1,22 +1,23 @@
 #-----------Unitée 1
 # automate 1 à 10 : Types : de 0X0000BA20 à de 0X0000BA2F
+
 import socket
 import sys
 print(sys.version, sys.platform, sys.executable)
 import json
 import random
 import os
-from tqdm import tqdm
 from random import randint, randrange
 from time import time, sleep
 from datetime import datetime
 from datetime import time
 from datetime import date
 import time
+
 #HOST = '127.0.0.1'
 #HOST = '0.0.0.0'
-HOST = socket.gethostbyname('localhost')
-#HOST = socket.gethostbyname(socket.gethostname())
+#HOST = socket.gethostbyname('collecteur')
+HOST = socket.gethostbyname(socket.gethostname())
 PORT = 10001
 
 unityNum = 1
@@ -46,8 +47,10 @@ def generateDatas(unityNum, creatTime) -> dict:
     #10:Niveau bactérien Listéria - ntre 28 et 54 ppm , par incrément de 1 ppm
     automate10 ={"ref" : "0X0000BA29" , "mesure" :  randint(28,54), "type_um" : "ppm"}
     mesures =[automate1, automate2, automate3, automate4, automate5, automate6, automate7,automate8, automate9, automate10]
+    #fileJson = {"unite" :unityNum , "dateCreation" : creatTime , "datas" : mesures}
     fileJson ={"DataSet":[{"unite": unityNum},{"DateHeure":creatTime},{"datas" : mesures}]}
     print(type(fileJson))
+
     jsonFileMesures = json.dumps(fileJson, sort_keys=True)
     return jsonFileMesures
         
@@ -68,32 +71,34 @@ def main():
         creatTime = time.strftime("%Y-%m-%d_%H-%M-%S", named_tuple)
         generateData = generateDatas(unityNum, creatTime)
         filePath = "json_files/"
-        fileName = "paramunite_"+ str(unityNum) + "_" + creatTime + ".json"
+        fileName = "Unity"+ str(unityNum) + "_" + creatTime + ".json"
         filePathName = filePath+fileName
         jsonFile= generateJson(generateData, filePathName)
         jsonFileSize = os.path.getsize(filePathName)
+
         print("Fichier ["+ str(iCount) +"] : ")
         print(".........File name : " + filePathName)   
         print(".........File size : " + str(jsonFileSize))
         print(".........Generated datas : " + generateData)
-        
+
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((HOST, PORT))
         # send the filename and filesize
         s.send(f"{fileName}{SEPARATOR}{jsonFileSize}".encode())
         # start sending the file
-       # progress = tqdm.tqdm(range(int(jsonFileSize)), f"Sending {fileName}", unit="B", unit_scale=True, unit_divisor=1024)
+        #progress = tqdm.tqdm(range(jsonFileSize), f"Sending {fileName}", unit="B", unit_scale=True, unit_divisor=1024)
         with open(filePathName, "rb") as f:
             while True:               
                 bytes_read = f.read(BUFFER_SIZE)
                 if not bytes_read:
                     break
                 s.sendall(bytes_read)
-               # progress.update(len(bytes_read))
+                #progress.update(len(bytes_read))
         print ('json was sent!')
         # close the socket
         s.close()
         iCount = iCount+1
         time.sleep(5)
+
 if __name__ == "__main__":
     main()

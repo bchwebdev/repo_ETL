@@ -3,27 +3,18 @@
 #----Ce fichier traite la reception des fichiers envoyés par les unités de prod (json)
 #---- Les traite et les renvoi
 #------------------------------------
-import requests, json, threading, socket, os, shutil, ssl, time
-
-import os
-# import socket programming library
-import socket
- # import thread module
-# import thread module
 from _thread import *
-import threading
-import ssl
-
+import requests, json, threading, socket, os, shutil, ssl, time
 #HOST = '127.0.0.1'
 #HOST = '0.0.0.0'
-#HOST = socket.gethostbyname('collecteur')
+#HOST = socket.gethostbyname()
 HOST = socket.gethostbyname(socket.gethostname())
 PORT = 10001
+PORT_MYSQL = 30000
 BUFFER_SIZE = 1024
 SEPARATOR = "<SEPARATOR>"
 print_lock = threading.Lock()
 filePath = "json_files/"
-
 
  # thread function
 def threaded(c,addr):
@@ -35,6 +26,7 @@ def threaded(c,addr):
             print_lock.release()
             break         
     c.close()
+
 def insertDatas(jsonFile):
     print("START insert")
     apiURL ='http://localhost:5000'
@@ -89,30 +81,32 @@ def Main():
             #filePathName=filePath+fileName
             fileName, filesize = jsonReceived.split(SEPARATOR)
             print("recieve:--------"+fileName)
+            # remove absolute path if there is
             fileName = os.path.basename(fileName)
-            # start receiving the file from the socket
+            # start receiving the file from the socket and writing to the file stream
+           # progress = tqdm.tqdm(range(int(filesize)), f"Receiving {fileName}", unit="B", unit_scale=True, unit_divisor=1024)
             filePathName = os.path.join("json_files/", fileName)
-            # and writing to the file stream
+
             print("write:--------"+filePathName)
             with open(filePathName, "wb") as f:
                 while True:
                     # read 1024 bytes from the socket (receive)
                     bytes_read = c.recv(BUFFER_SIZE)
                     if not bytes_read:    
-                        # nothing is received file transmitting is done
+                    # nothing is received file transmitting is done
                         break
                     # write to the file the bytes we just received
                     f.write(bytes_read)
-        #Insert datas
+                    # update the progress bar
+                    # progress.update(len(bytes_read)) 
+
+        #Insertion des données
         #----------------------
         #insertDatas(fileName)  
-        #----------------------
-        c.close()
-    
-        # Start a new thread 
+        #----------------------       
         thread = threading.Thread(target=threaded, args=(c,addr))
-        thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
-    
+        thread.start()# Start a new thread
+        print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
+
 if __name__ == '__main__':
     Main()

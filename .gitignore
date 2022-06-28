@@ -1,8 +1,16 @@
-# ignorer tous les fichiers dans le répertoire mariadb
-mariadb/
+# ignorer tous les fichiers dans le répertoire
 _Sujet du TP/
 _Datas_Utils/tests-docker-compose/
 _tests/
+Unities/Unit1/json_files/
+Unities/Unit2/json_files/
+Unities/Unit3/json_files/
+Unities/Unit4/json_files/
+Unities/Unit5/json_files/
+
+
+
+
 
 
 

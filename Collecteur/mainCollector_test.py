@@ -11,7 +11,7 @@ import socket
 from _thread import *
 import threading
 
-import tqdm
+#import tqdm
 import ssl
 
 #HOST = '127.0.0.1'
@@ -58,9 +58,7 @@ def Main():
             fileName = os.path.basename(fileName)
             # convert to integer
             filesize = int(filesize)
-            # start receiving the file from the socket
             # and writing to the file stream
-            progress = tqdm.tqdm(range(filesize), f"Receiving {fileName}", unit="B", unit_scale=True, unit_divisor=1024)
             filePathName = os.path.join("json_files/", fileName)
 
             print("write:--------"+filePathName)
@@ -73,8 +71,7 @@ def Main():
                         break
                     # write to the file the bytes we just received
                     f.write(bytes_read)
-                    # update the progress bar
-                    progress.update(len(bytes_read)) 
+                    
         # Start a new thread 
         thread = threading.Thread(target=threaded, args=(c,addr))
         thread.start()
@@ -84,4 +81,3 @@ def Main():
     
 if __name__ == '__main__':
     Main()
-    
