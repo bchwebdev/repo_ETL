@@ -7,7 +7,7 @@ WORKDIR /app/
 RUN pip3 install --upgrade pip
 RUN pip3 install tqdm
 RUN pip3 install -r requirements.txt
-#RUN --network=host
+# RUN --network=host
 # '/app/' is base directory
 
 # execute the command

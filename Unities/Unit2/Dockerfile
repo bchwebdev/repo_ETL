@@ -8,7 +8,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
-#RUN --network=host
+# RUN --network=host
 
 # '/app/' is base directory
 WORKDIR /app/

@@ -1,20 +1,16 @@
-#---------------------------------------------
-#---28/05/2022 complet
-#---------------------------------------------
+
 version: "3.4"
 
 services:
   flask_datavisu:
-        container_name: flask_datavisu
-        build: ./Flask
-        links:
-        - mysql_db
-        ports:
-        - "5000:5000"
+    container_name: flask_datavisu
+    build: ./Flask
+    links:
+    - mysql_db
+    ports:
+    - "5000:5000"
 
-      #collecteur-------------          
   collecteur:
-  # image: collecteur
     build: ./Collecteur
     container_name: 'collecteur'
     command: python3 mainCollector.py
@@ -37,33 +33,26 @@ services:
   
   phpmyadmin:
       depends_on:
-       - mysql_db
+      - mysql_db
       image: phpmyadmin/phpmyadmin
       container_name: phpmyadmin
       restart: always
       ports:
-       - '8080:80'
+      - '8080:80'
       environment:
         PMA_HOST: mysql_db
- 
-   #unitées-------------
-   #--unitée1-------------     
+
   unite1:
-     # image: unite1
       build: ./Unities/Unit1
       container_name: 'unite1'
       command: python3 appU1.py
-      network_mode: host
       ports:
         - '10002:10002'
       depends_on:
-         - collecteur
-         - mysql_db
-         - phpmyadmin
-         - flask_datavisu 
-         
+        - collecteur
+        - mysql_db
+        - phpmyadmin
+        - flask_datavisu 
+        
 volumes:
-   tp_datavisu_aubonbeurre:
-
-
-               
+  tp_datavisu_aubonbeurre:
