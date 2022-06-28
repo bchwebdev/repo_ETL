@@ -71,7 +71,7 @@ def insertDatas(jsonFile):
     else:
         print("No files to save")
 #------------------------------------
-def Main():   
+def main():   
     # create the client socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
@@ -105,7 +105,7 @@ def Main():
                     f.write(bytes_read)
         #Insert datas
         #----------------------
-        #insertDatas(fileName)  
+        insertDatas(fileName)  
         #----------------------
         c.close()
     
@@ -115,4 +115,4 @@ def Main():
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
     
 if __name__ == '__main__':
-    Main()
+    main()
